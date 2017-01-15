@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ir.etsy.classifier;
+package com.ir.etsy.clusterizer;
 
 /**
  *
@@ -11,6 +11,6 @@ package com.ir.etsy.classifier;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("I am the Classifier's main class!");
+        System.out.println("I am the Clusterizer's main class!");
     }
 }
