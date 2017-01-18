@@ -12,3 +12,6 @@
 hs_err_pid*
 /EtsyClusterizer/.nb-gradle/
 /EtsyClusterizer/build/
+/EtsyCrawler/build/
+
+.gradle
