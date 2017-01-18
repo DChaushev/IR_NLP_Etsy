@@ -1,16 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ir.etsy.clusterizer;
+
+import com.ir.etsy.clusterizer.utils.EtsyListingUnmarshaller;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  *
  * @author Dimitar
  */
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("I am the Clusterizer's main class!");
+
+    private static final String EXAMPLE_JSON = ""; /* Add json file path */
+
+
+    public static void main(String[] args) throws IOException {
+        List<Listing> listings = EtsyListingUnmarshaller.getListings(new File(EXAMPLE_JSON));
+        System.out.println(listings.size());
+        for (Listing listing : listings) {
+            System.out.println(listing.getListingId());
+        }
     }
 }
