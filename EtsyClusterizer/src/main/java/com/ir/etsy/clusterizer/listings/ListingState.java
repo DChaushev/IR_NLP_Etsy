@@ -1,4 +1,4 @@
-package com.ir.etsy.clusterizer;
+package com.ir.etsy.clusterizer.listings;
 
 import java.util.Map;
 import java.util.function.Function;

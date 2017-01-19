@@ -1,75 +1,97 @@
-package com.ir.etsy.clusterizer;
+package com.ir.etsy.clusterizer.listings;
 
+import com.ir.etsy.clusterizer.utils.ListingProperties;
 import java.util.List;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.TextField;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  *
  * @author Dimitar
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Listing {
 
-    @JsonProperty("listing_id")
+    @JsonProperty(ListingProperties.LISTING_ID)
     private long listingId;
 
-    @JsonProperty("state")
+    @JsonProperty(ListingProperties.STATE)
     private ListingState state;
 
-    @JsonProperty("user_id")
+    @JsonProperty(ListingProperties.USER_ID)
     private long userId;
 
-    @JsonProperty("title")
+    @JsonProperty(ListingProperties.TITLE)
     private String title;
 
-    @JsonProperty("description")
-    private String description;
-
-    @JsonProperty("creation_tsz")
+    @JsonProperty(ListingProperties.CREATION_TSZ)
     private double creationTsz;
 
-    @JsonProperty("ending_tsz")
+    @JsonProperty(ListingProperties.ENDING_TSZ)
     private double endingTsz;
 
-    @JsonProperty("tags")
+    @JsonProperty(ListingProperties.TAGS)
     private List<String> tags;
 
-    @JsonProperty("category_path")
+    @JsonProperty(ListingProperties.CATEGORY_PATH)
     private List<String> categoryPath;
 
-    @JsonProperty("category_path_ids")
+    @JsonProperty(ListingProperties.CATEGORY_PATH_IDS)
     private List<Long> categoryPathIds;
 
-    @JsonProperty("materials")
+    @JsonProperty(ListingProperties.MATERIALS)
     private List<String> materials;
 
-    @JsonProperty("views")
+    @JsonProperty(ListingProperties.VIEWS)
     private int views;
 
-    @JsonProperty("num_favorers")
+    @JsonProperty(ListingProperties.NUM_FAVORERS)
     private int numFavorers;
 
-    @JsonProperty("is_supply")
+    @JsonProperty(ListingProperties.IS_SUPPLY)
     private boolean isSupply;
 
-    @JsonProperty("occasion")
+    @JsonProperty(ListingProperties.OCCASION)
     private String occasion;
 
-    @JsonProperty("style")
+    @JsonProperty(ListingProperties.STYLE)
     private String style;
 
-    @JsonProperty("has_variations")
+    @JsonProperty(ListingProperties.HAS_VARIATION)
     private boolean hasVariations;
 
-    @JsonProperty("suggested_taxonomy_id")
+    @JsonProperty(ListingProperties.SUGGESTED_TAXONOMY_ID)
     private long suggestedTaxonomyId;
 
-    @JsonProperty("taxonomy_path")
+    @JsonProperty(ListingProperties.TAXONOMY_PATH)
     private List<String> taxonomyPath;
 
-    @JsonProperty("used_manufacturer")
+    @JsonProperty(ListingProperties.USED_MANUFACTURER)
     private boolean usedManufacturer;
 
     public Listing() {
+    }
+
+    public Document toDocument() {
+        Document document = new Document();
+        document.add(new TextField(ListingProperties.TITLE, title, Field.Store.YES));
+        document.add(new TextField(ListingProperties.TAGS, listToString(tags), Field.Store.YES));
+        return document;
+    }
+
+    private static String listToString(List<String> list) {
+        StringBuilder elementsBuilder = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            elementsBuilder.append(list.get(i));
+
+            if (i < list.size() - 1) {
+                elementsBuilder.append(" ");
+            }
+        }
+        return elementsBuilder.toString();
     }
 
     public long getListingId() {
@@ -104,28 +126,20 @@ public class Listing {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getCreation_tsz() {
+    public double getCreationTsz() {
         return creationTsz;
     }
 
-    public void setCreation_tsz(double creation_tsz) {
-        this.creationTsz = creation_tsz;
+    public void setCreationTsz(double creationTsz) {
+        this.creationTsz = creationTsz;
     }
 
-    public double getEnding_tsz() {
+    public double getEndingTsz() {
         return endingTsz;
     }
 
-    public void setEnding_tsz(double ending_tsz) {
-        this.endingTsz = ending_tsz;
+    public void setEndingTsz(double endingTsz) {
+        this.endingTsz = endingTsz;
     }
 
     public List<String> getTags() {
@@ -136,20 +150,20 @@ public class Listing {
         this.tags = tags;
     }
 
-    public List<String> getCategory_path() {
+    public List<String> getCategoryPath() {
         return categoryPath;
     }
 
-    public void setCategory_path(List<String> category_path) {
-        this.categoryPath = category_path;
+    public void setCategoryPath(List<String> categoryPath) {
+        this.categoryPath = categoryPath;
     }
 
-    public List<Long> getCategory_path_ids() {
+    public List<Long> getCategoryPathIds() {
         return categoryPathIds;
     }
 
-    public void setCategory_path_ids(List<Long> category_path_ids) {
-        this.categoryPathIds = category_path_ids;
+    public void setCategoryPathIds(List<Long> categoryPathIds) {
+        this.categoryPathIds = categoryPathIds;
     }
 
     public List<String> getMaterials() {
@@ -168,20 +182,20 @@ public class Listing {
         this.views = views;
     }
 
-    public int getNum_favorers() {
+    public int getNumFavorers() {
         return numFavorers;
     }
 
-    public void setNum_favorers(int num_favorers) {
-        this.numFavorers = num_favorers;
+    public void setNumFavorers(int numFavorers) {
+        this.numFavorers = numFavorers;
     }
 
-    public boolean isIs_supply() {
+    public boolean isIsSupply() {
         return isSupply;
     }
 
-    public void setIs_supply(boolean is_supply) {
-        this.isSupply = is_supply;
+    public void setIsSupply(boolean isSupply) {
+        this.isSupply = isSupply;
     }
 
     public String getOccasion() {
@@ -200,36 +214,36 @@ public class Listing {
         this.style = style;
     }
 
-    public boolean isHas_variations() {
+    public boolean isHasVariations() {
         return hasVariations;
     }
 
-    public void setHas_variations(boolean has_variations) {
-        this.hasVariations = has_variations;
+    public void setHasVariations(boolean hasVariations) {
+        this.hasVariations = hasVariations;
     }
 
-    public long getSuggested_taxonomy_id() {
+    public long getSuggestedTaxonomyId() {
         return suggestedTaxonomyId;
     }
 
-    public void setSuggested_taxonomy_id(long suggested_taxonomy_id) {
-        this.suggestedTaxonomyId = suggested_taxonomy_id;
+    public void setSuggestedTaxonomyId(long suggestedTaxonomyId) {
+        this.suggestedTaxonomyId = suggestedTaxonomyId;
     }
 
-    public List<String> getTaxonomy_path() {
+    public List<String> getTaxonomyPath() {
         return taxonomyPath;
     }
 
-    public void setTaxonomy_path(List<String> taxonomy_path) {
-        this.taxonomyPath = taxonomy_path;
+    public void setTaxonomyPath(List<String> taxonomyPath) {
+        this.taxonomyPath = taxonomyPath;
     }
 
-    public boolean isUsed_manufacturer() {
+    public boolean isUsedManufacturer() {
         return usedManufacturer;
     }
 
-    public void setUsed_manufacturer(boolean used_manufacturer) {
-        this.usedManufacturer = used_manufacturer;
+    public void setUsedManufacturer(boolean usedManufacturer) {
+        this.usedManufacturer = usedManufacturer;
     }
 
     @Override
@@ -239,7 +253,6 @@ public class Listing {
                 + ", state=" + state
                 + ", user_id=" + userId
                 + ", title=" + title
-                + ", description=" + description
                 + ", creation_tsz=" + creationTsz
                 + ", ending_tsz=" + endingTsz
                 + ", tags=" + tags

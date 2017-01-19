@@ -1,6 +1,6 @@
 package com.ir.etsy.clusterizer.utils;
 
-import com.ir.etsy.clusterizer.Listing;
+import com.ir.etsy.clusterizer.listings.Listing;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
