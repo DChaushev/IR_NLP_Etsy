@@ -20,10 +20,11 @@ public enum ListingState {
     DRAFT("draft"),
     CRATE("create"),
     PRIVATE("private"),
-    UNAVAILABLE("unavailable");
+    UNAVAILABLE("unavailable"),
+    VACATION("vacation");
 
     private static final Map<String, ListingState> FORMAT_MAP = Stream.of(ListingState.values()).collect(
-            Collectors.toMap(s -> s.state, Function.identity()));
+            Collectors.toMap((ListingState s) -> s.state, Function.identity()));
 
     private final String state;
 

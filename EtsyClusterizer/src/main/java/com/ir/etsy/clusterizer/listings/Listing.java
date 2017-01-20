@@ -4,6 +4,8 @@ import com.ir.etsy.clusterizer.utils.ListingProperties;
 import java.util.List;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.LongPoint;
+import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -28,10 +30,10 @@ public class Listing {
     private String title;
 
     @JsonProperty(ListingProperties.CREATION_TSZ)
-    private double creationTsz;
+    private long creationTsz;
 
     @JsonProperty(ListingProperties.ENDING_TSZ)
-    private double endingTsz;
+    private long endingTsz;
 
     @JsonProperty(ListingProperties.TAGS)
     private List<String> tags;
@@ -58,7 +60,7 @@ public class Listing {
     private String occasion;
 
     @JsonProperty(ListingProperties.STYLE)
-    private String style;
+    private List<String> style;
 
     @JsonProperty(ListingProperties.HAS_VARIATION)
     private boolean hasVariations;
@@ -74,24 +76,38 @@ public class Listing {
 
     public Listing() {
     }
-
+    
     public Document toDocument() {
-        Document document = new Document();
-        document.add(new TextField(ListingProperties.TITLE, title, Field.Store.YES));
-        document.add(new TextField(ListingProperties.TAGS, listToString(tags), Field.Store.YES));
-        return document;
+        Document doc = new Document();
+
+        String listingIdStr = ((Long) listingId).toString();
+        doc.add(new StringField("listingId", listingIdStr, Field.Store.YES));
+        
+        doc.add(new TextField("title", (title!=null ? title : ""), Field.Store.YES));
+
+        addListItems(doc, tags, "tags");
+
+        int categoryIndex = 0;
+        // There are only up to 3 categories in a hierarchy
+        for (String category : categoryPath) {
+            doc.add(new StringField("category" + (categoryIndex++), category, Field.Store.YES));
+        }
+        
+        addListItems(doc, materials, "materials");
+        
+        doc.add(new LongPoint("creationTsz", creationTsz));
+        doc.add(new LongPoint("endingTsz", endingTsz));
+
+        doc.add(new LongPoint("views", views));
+        doc.add(new LongPoint("numFavorers", numFavorers));
+
+        return doc;
     }
 
-    private static String listToString(List<String> list) {
-        StringBuilder elementsBuilder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            elementsBuilder.append(list.get(i));
-
-            if (i < list.size() - 1) {
-                elementsBuilder.append(" ");
-            }
+    private static void addListItems(Document doc, List<String> list, String fieldName) {
+        for (String item : list) {
+            doc.add(new TextField(fieldName, item, Field.Store.YES));
         }
-        return elementsBuilder.toString();
     }
 
     public long getListingId() {
@@ -130,7 +146,7 @@ public class Listing {
         return creationTsz;
     }
 
-    public void setCreationTsz(double creationTsz) {
+    public void setCreationTsz(long creationTsz) {
         this.creationTsz = creationTsz;
     }
 
@@ -138,7 +154,7 @@ public class Listing {
         return endingTsz;
     }
 
-    public void setEndingTsz(double endingTsz) {
+    public void setEndingTsz(long endingTsz) {
         this.endingTsz = endingTsz;
     }
 
@@ -206,11 +222,11 @@ public class Listing {
         this.occasion = occasion;
     }
 
-    public String getStyle() {
+    public List<String> getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(List<String> style) {
         this.style = style;
     }
 

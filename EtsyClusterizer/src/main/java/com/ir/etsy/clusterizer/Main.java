@@ -1,6 +1,7 @@
 package com.ir.etsy.clusterizer;
 
 import com.ir.etsy.clusterizer.listings.Listing;
+import com.ir.etsy.clusterizer.listings.ListingState;
 import com.ir.etsy.clusterizer.utils.EtsyListingUnmarshaller;
 import com.ir.etsy.clusterizer.utils.IOUtils;
 import com.ir.etsy.clusterizer.utils.ListingProperties;
@@ -22,13 +23,13 @@ import org.apache.lucene.search.TopDocs;
  * @author Dimitar
  */
 public class Main {
-
-    private static final String EXAMPLE_LISTINGS_FOLDER = "C:\\Users\\Dimitar\\Documents\\NetBeansProjects\\InformationRetrieval16-17\\IR_NLP_Etsy\\listings";
-    private static final String INDEX_DIR = "C:\\Users\\Dimitar\\Documents\\NetBeansProjects\\InformationRetrieval16-17\\IR_NLP_Etsy\\EtsyClusterizer\\index";
+    
+    private static final String EXAMPLE_LISTINGS_FOLDER = "";
+    private static final String INDEX_DIR = "";
 
     public static void main(String[] args) throws IOException {
         File[] files = IOUtils.getAllFiles(EXAMPLE_LISTINGS_FOLDER);
-        IndexWriter indexWriter = LuceneIndexUtils.openIndex(INDEX_DIR);
+        IndexWriter indexWriter = LuceneIndexUtils.createIndex(INDEX_DIR);
         addDocuments(files, indexWriter);
         LuceneIndexUtils.closeIndex(indexWriter);
 
@@ -37,8 +38,10 @@ public class Main {
 
         Query query = new PhraseQuery(ListingProperties.TITLE, "chess", "board");
 
-        TopDocs results = indexSearcher.search(query, 10);
+        TopDocs results = indexSearcher.search(query, 100);
 
+        System.out.println("Found " + results.scoreDocs.length + " hits.");
+        
         for (ScoreDoc scoreDoc : results.scoreDocs) {
             Document doc = indexSearcher.doc(scoreDoc.doc);
             System.out.println(doc.get(ListingProperties.TITLE));
@@ -49,9 +52,13 @@ public class Main {
 
     private static void addDocuments(File[] files, IndexWriter indexWriter) throws IOException {
         for (File file : files) {
+            System.out.println("Reading file " + file.getName());
             List<Listing> listings = EtsyListingUnmarshaller.getListings(file);
             for (Listing listing : listings) {
-                indexWriter.addDocument(listing.toDocument());
+                // Strangely, there are some non-active items
+                if (listing.getState() == ListingState.ACTIVE) {
+                    indexWriter.addDocument(listing.toDocument());
+                }
             }
         }
     }

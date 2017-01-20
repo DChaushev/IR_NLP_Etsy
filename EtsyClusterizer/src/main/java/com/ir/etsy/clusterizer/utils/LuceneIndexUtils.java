@@ -1,5 +1,6 @@
 package com.ir.etsy.clusterizer.utils;
 
+import com.ir.etsy.clusterizer.listings.ListingAnalyzer;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -20,15 +21,15 @@ import org.apache.lucene.store.FSDirectory;
  */
 public class LuceneIndexUtils {
 
-    public static IndexWriter openIndex(String indexDir) throws IOException {
+    public static IndexWriter createIndex(String indexDir) throws IOException {
         Validate.notEmpty(indexDir);
-        return openIndex(new File(indexDir));
+        return createIndex(new File(indexDir));
     }
 
-    public static IndexWriter openIndex(File indexDir) throws IOException {
+    public static IndexWriter createIndex(File indexDir) throws IOException {
         Validate.notNull(indexDir);
         Directory dir = FSDirectory.open(indexDir.toPath());
-        Analyzer analyzer = new StandardAnalyzer();
+        Analyzer analyzer = ListingAnalyzer.getAnalyzer();
         IndexWriterConfig cfg = new IndexWriterConfig(analyzer);
         cfg.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         return new IndexWriter(dir, cfg);
