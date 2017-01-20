@@ -15,5 +15,5 @@ hs_err_pid*
 /EtsyCrawler/build/
 
 .gradle
-.nb-gradle
+.nb-gradle/
 .nb-gradle-properties
