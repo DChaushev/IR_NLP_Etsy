@@ -1,7 +1,5 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "ionic-ir-etsy-client",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -40,5 +38,5 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "description": "client: An Ionic project"
+  "description": "A client app to be used with the Lucene-based IR project for searching in the Etsy listings"
 }
