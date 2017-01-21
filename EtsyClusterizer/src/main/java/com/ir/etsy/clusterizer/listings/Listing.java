@@ -76,13 +76,13 @@ public class Listing {
 
     public Listing() {
     }
-    
+
     public Document toDocument() {
         Document doc = new Document();
 
         String listingIdStr = ((Long) listingId).toString();
         doc.add(new StringField("listingId", listingIdStr, Field.Store.YES));
-        
+
         doc.add(new TextField("title", (title!=null ? title : ""), Field.Store.YES));
 
         addListItems(doc, tags, "tags");
