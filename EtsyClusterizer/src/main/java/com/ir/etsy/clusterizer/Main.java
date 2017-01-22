@@ -24,8 +24,8 @@ import org.apache.lucene.search.TopDocs;
  */
 public class Main {
 
-    private static final String EXAMPLE_LISTINGS_FOLDER = "D:\\IR_project_etsy_files\\data";
-    private static final String INDEX_DIR = "D:\\IR_project_etsy_files\\index";
+    private static final String EXAMPLE_LISTINGS_FOLDER = "";
+    private static final String INDEX_DIR = "";
 
     public static void main(String[] args) throws IOException {
         File[] files = IOUtils.getAllFiles(EXAMPLE_LISTINGS_FOLDER);
