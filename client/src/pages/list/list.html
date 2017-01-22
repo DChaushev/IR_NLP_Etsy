@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <ion-title *ngIf='currentCategoryId === null'>
       Select category
     </ion-title>
     <div class='category-path'>
@@ -24,12 +24,9 @@
 </ion-header>
 
 <ion-content>
-  <div class='content-heading'>
+  <div class='content-heading' *ngIf='currentCategoryId !== null'>
     <h3>
-      The category has {{ totalListingsCount }} items
-    </h3>
-    <h3 *ngIf="listings.length > 0">
-      Listings for category:
+      The category has {{ totalListingsCount }} items:
     </h3>
   </div>
   <ion-list>

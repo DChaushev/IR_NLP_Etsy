@@ -26,7 +26,7 @@ export class ListPage {
     let lastCategory = this.categoryPath[this.categoryPath.length - 1] || {};
     this.currentCategoryId = _.get(lastCategory, 'category_id', null);
     this.nextCategories = [];
-    this.nextCategoriesCollapsed = true;
+    this.nextCategoriesCollapsed = (this.currentCategoryId !== null);
     this.listings = [];
     this.totalListingsCount = 0;
     this.init();
