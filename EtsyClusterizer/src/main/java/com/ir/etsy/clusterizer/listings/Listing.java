@@ -80,26 +80,26 @@ public class Listing {
     public Document toDocument() {
         Document doc = new Document();
 
-        String listingIdStr = ((Long) listingId).toString();
-        doc.add(new StringField("listingId", listingIdStr, Field.Store.YES));
+        String listingIdStr = String.valueOf(listingId);
+        doc.add(new StringField(ListingProperties.LISTING_ID, listingIdStr, Field.Store.YES));
 
-        doc.add(new TextField("title", (title!=null ? title : ""), Field.Store.YES));
+        doc.add(new TextField(ListingProperties.TITLE, (title != null ? title : ""), Field.Store.YES));
 
-        addListItems(doc, tags, "tags");
+        addListItems(doc, tags, ListingProperties.TAGS);
 
         int categoryIndex = 0;
         // There are only up to 3 categories in a hierarchy
         for (String category : categoryPath) {
-            doc.add(new StringField("category" + (categoryIndex++), category, Field.Store.YES));
+            doc.add(new StringField(ListingProperties.CATEGORY + (categoryIndex++), category, Field.Store.YES));
         }
-        
-        addListItems(doc, materials, "materials");
-        
-        doc.add(new LongPoint("creationTsz", creationTsz));
-        doc.add(new LongPoint("endingTsz", endingTsz));
 
-        doc.add(new LongPoint("views", views));
-        doc.add(new LongPoint("numFavorers", numFavorers));
+        addListItems(doc, materials, ListingProperties.MATERIALS);
+
+        doc.add(new LongPoint(ListingProperties.CREATION_TSZ, creationTsz));
+        doc.add(new LongPoint(ListingProperties.ENDING_TSZ, endingTsz));
+
+        doc.add(new LongPoint(ListingProperties.VIEWS, views));
+        doc.add(new LongPoint(ListingProperties.NUM_FAVORERS, numFavorers));
 
         return doc;
     }
