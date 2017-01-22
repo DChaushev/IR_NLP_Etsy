@@ -1,10 +1,49 @@
 page-list {
-  ion-card {
-    img {
-      width: 200px;
-      height: 200px;
-      display: block;
-      margin: 0 auto;
+
+  ion-navbar {
+
+    .toolbar-title {
+      padding: 20px 20px 0 20px;
+    }
+
+    .category-path {
+      margin: 10px;
+    }
+
+    .current-category,
+    .home-category {
+      margin: 5px;
+      padding: 8px;
+      background-color: color($colors, secondary);
+
+      &:hover, &:active {
+        background-color: color($colors, primary);
+      }
+    }
+
+    .home-category {
+      padding: 8px 12px;
+    }
+
+    ion-icon {
+      font-size: 30px;
+      float: right;
+      margin: 0 10px;
+    }
+
+    .next-category {
+      margin: 5px;
+      padding: 8px;
+
+      &:hover, &:active {
+        background-color: color($colors, secondary);
+      }
+    }
+  }
+
+  ion-content {
+    .content-heading {
+      padding: 20px;
     }
   }
 }

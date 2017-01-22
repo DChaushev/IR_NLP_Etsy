@@ -1,14 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <button menuToggle *ngIf="!selectedItem">
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Item Details</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="navigateHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <h3 text-center *ngIf="selectedItem">
-    Details for item with ID: {{selectedItem.listing_id}}
+    Details for {{ selectedItem.title }}
   </h3>
 </ion-content>

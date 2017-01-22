@@ -1,26 +1,46 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>List</ion-title>
+    <ion-title>
+      Select category
+    </ion-title>
+    <div class='category-path'>
+      <ion-badge class='home-category' (click)="goToStart()">
+        >
+      </ion-badge>
+      <ion-badge class='current-category' *ngFor="let category of categoryPath" (click)="selectCategory(category)">
+        {{ category.short_name }}
+      </ion-badge>
+    </div>
+    <div class='next-categories-collapsible' (click)="toggleCollapse()">
+      <div *ngIf="!nextCategoriesCollapsed">
+        <ion-badge class='next-category' *ngFor="let category of nextCategories" (click)="selectCategory(category)">
+          {{ category.short_name }}
+        </ion-badge>
+      </div>
+      <ion-icon name="arrow-dropup-circle" *ngIf="!nextCategoriesCollapsed && nextCategories.length > 0"></ion-icon>
+      <ion-icon name="arrow-dropdown-circle" *ngIf="nextCategoriesCollapsed && nextCategories.length > 0"></ion-icon>
+    </div>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <div class='content-heading'>
+    <h3>
+      The category has {{ totalListingsCount }} items
+    </h3>
+    <h3 *ngIf="listings.length > 0">
+      Listings for category:
+    </h3>
+  </div>
   <ion-list>
-    <button ion-item *ngFor="let item of items; let index = index" (click)="itemTapped($event, item)">
-      <ion-card>
-        <img src="assets/icon/favicon.ico"/>
-        <ion-card-content>
-          <ion-card-title>
-            Item no {{index+1}}
-          </ion-card-title>
-          <p>
-            ID: {{item.listing_id}}
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </button>
+    <ion-item *ngFor="let item of listings; let i = index" (click)="selectItem(item)">
+      <ion-title>
+        {{ i+1 }}. {{ item.title }}
+      </ion-title>
+    </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreItems($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

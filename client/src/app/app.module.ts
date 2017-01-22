@@ -4,6 +4,9 @@ import { MyApp } from './app.component';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
+import { CategoriesService } from '../providers/categories-service';
+import { ListingsService } from '../providers/listings-service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -19,6 +22,10 @@ import { ListPage } from '../pages/list/list';
     ItemDetailsPage,
     ListPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    CategoriesService,
+    ListingsService,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ]
 })
 export class AppModule {}
