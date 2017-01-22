@@ -1,1 +1,1 @@
-include 'EtsyCrawler', 'EtsyClusterizer'
+include 'EtsyClusterizer'

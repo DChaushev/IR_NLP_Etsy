@@ -25,5 +25,7 @@ public class ListingProperties {
     public static final String SUGGESTED_TAXONOMY_ID = "suggested_taxonomy_id";
     public static final String TAXONOMY_PATH = "taxonomy_path";
     public static final String USED_MANUFACTURER = "used_manufacturer";
+    
+    public static final String CATEGORY = "category";
 
 }

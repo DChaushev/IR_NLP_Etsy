@@ -23,7 +23,7 @@ import org.apache.lucene.search.TopDocs;
  * @author Dimitar
  */
 public class Main {
-    
+
     private static final String EXAMPLE_LISTINGS_FOLDER = "";
     private static final String INDEX_DIR = "";
 
@@ -41,7 +41,7 @@ public class Main {
         TopDocs results = indexSearcher.search(query, 100);
 
         System.out.println("Found " + results.scoreDocs.length + " hits.");
-        
+
         for (ScoreDoc scoreDoc : results.scoreDocs) {
             Document doc = indexSearcher.doc(scoreDoc.doc);
             System.out.println(doc.get(ListingProperties.TITLE));

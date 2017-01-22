@@ -1,5 +1,8 @@
+def webAppsFolder = "C:/apache-tomcat-9.0.0.M1/webapps"
+
 subprojects{
     apply plugin: 'java'
+    apply plugin: 'war'
 
     sourceCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -10,5 +13,13 @@ subprojects{
 
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.10'
+    }
+    
+    //After build, copy the war to the server
+    build.doLast{
+        copy {
+            from war.archivePath
+            into webAppsFolder
+        }
     }
 }

@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import org.apache.commons.lang3.Validate;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
