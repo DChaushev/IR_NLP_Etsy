@@ -7,11 +7,13 @@ import { Category } from './categories-service';
 
 import _ from 'lodash';
 
-const LUCENE_SIMILARITY_URL = 'http://localhost/get-similar-listings';
+
+const LUCENE_SIMILARITY_URL = 'http://localhost:8080/EtsyClusterizer/get-similar-listings';
+const ETSY_API_KEY = '';
+
 
 const REAL_ENDPOINT = 'https://openapi.etsy.com/v2';
 const PROXY_ENDPOINT = 'http://localhost:8100/etsy';
-const ETSY_API_KEY = '';
 const FAT_LISTING_FIELDS = [
   'listing_id', 'state', 'user_id', 'title', 'creation_tsz', 'ending_tsz',
   'tags', 'category_path', 'category_path_ids', 'materials', 'views', 'num_favorers', 'is_supply',
@@ -165,14 +167,11 @@ export class ListingsService {
   }
 
   getListingDetails(listingId: number) : Promise<FatListing> {
-    return Promise.resolve(MOCK);
-    /*
-      return new Promise((resolve, reject) => {
-        this._getListingDetails(listingId, resolve, () => {
-          resolve(MOCK);
-        });
+    return new Promise((resolve, reject) => {
+      this._getListingDetails(listingId, resolve, () => {
+        resolve(MOCK);
       });
-  */
+    });
   }
 
   getSimilarItems(listing: FatListing) : Promise<Array<SlimListing>> {

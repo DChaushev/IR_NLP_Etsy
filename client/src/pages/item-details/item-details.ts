@@ -45,25 +45,27 @@ export class ItemDetailsPage {
   getSimilar() {
     this.buttonSimilarEnabled = false;
     this.listingsService
-    /*
       .getSimilarItems(this.itemDetails)
-      */
-      .getListingsForCategoryPath([ {
-  "category_id": 69150467,
-  "name": "accessories",
-  "meta_title": "Handmade Accessories on Etsy - Belts, hats, pins, scarves",
-  "meta_keywords": "handmade accessories, handmade belt, handmade hat, handmade wallet, handmade scarf, handmade keychain, handmade necktie, handmade accessory",
-  "page_title": "Handmade accessories",
-  "short_name": "Accessories",
-  "num_children": 27,
-  "level": 1,
-  "parent_id": null,
-  "grandparent_id": null
- }
- ], 0, 11)
       .then((res) => {
         this.similarItems = res;
         this.buttonSimilarEnabled = true;
+      }, (err) => {
+        // Mock response on error
+        this.listingsService.getListingsForCategoryPath([{
+          "category_id": 69150467,
+          "name": "accessories",
+          "meta_title": "Handmade Accessories on Etsy - Belts, hats, pins, scarves",
+          "meta_keywords": "handmade accessories, handmade belt, handmade hat, handmade wallet, handmade scarf, handmade keychain, handmade necktie, handmade accessory",
+          "page_title": "Handmade accessories",
+          "short_name": "Accessories",
+          "num_children": 27,
+          "level": 1,
+          "parent_id": null,
+          "grandparent_id": null
+        }], 0, 11).then((res) => {
+          this.similarItems = res;
+          this.buttonSimilarEnabled = true;
+        });
       });
   }
 }

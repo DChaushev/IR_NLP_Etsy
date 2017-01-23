@@ -9,8 +9,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content *ngIf="itemDetails !== null">
-  <ion-card>
+<ion-content>
+  <ion-card *ngIf="itemDetails !== null">
     <ion-card-title>
       {{ itemDetails.title }}
     </ion-card-title>
@@ -26,7 +26,7 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <div class='actions'>
+  <div class='actions' *ngIf="itemDetails !== null">
     <a href={{itemDetails.url}} target="_blank" ion-button block (click)="navigateHome()">
       Open on Etsy
     </a>
