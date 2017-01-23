@@ -1,3 +1,45 @@
 page-item-details {
 
+  ion-navbar {
+    ion-buttons {
+      margin: 0 10px;
+    }
+  }
+
+  .scroll-content {
+    padding-bottom: 50px;
+  }
+
+  ion-card {
+
+    .card-title {
+      margin: 10px 20px;
+      text-align: center;
+    }
+
+    img {
+      width: 570px;
+      margin: 0 auto;
+    }
+
+    .description {
+      padding: 10px;
+    }
+
+    .tags {
+      margin-top: 20px;
+    }
+
+    .tag {
+      margin: 5px;
+      padding: 5px;
+      background-color: color($colors, dark);
+    }
+  }
+
+  .actions {
+    .button {
+      margin: 20px 0;
+    }
+  }
 }

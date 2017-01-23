@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { ItemDetailsPage } from '../item-details/item-details';
 import { CategoriesService, Category } from '../../providers/categories-service';
-import { ListingsService, LocalListing } from '../../providers/listings-service';
+import { ListingsService, SlimListing } from '../../providers/listings-service';
 
 import _ from 'lodash';
 
@@ -16,7 +16,7 @@ export class ListPage {
   currentCategoryId: number;
   nextCategories: Array<Category>;
   nextCategoriesCollapsed: boolean;
-  listings: Array<LocalListing>;
+  listings: Array<SlimListing>;
   totalListingsCount: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -88,7 +88,7 @@ export class ListPage {
     }
   }
 
-  selectItem(item) {
+  goToDetails(item) {
     this.navCtrl.push(ItemDetailsPage, {
       item: item
     });

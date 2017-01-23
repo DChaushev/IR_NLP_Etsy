@@ -2,5 +2,9 @@
   "name": "client",
   "app_id": "",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+  "proxies": [{
+    "path": "/etsy",
+    "proxyUrl": "https://openapi.etsy.com/v2/"
+  }]
 }

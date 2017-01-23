@@ -3,7 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
-import _ from 'lodash';
 
 export interface Category {
   category_id: number,

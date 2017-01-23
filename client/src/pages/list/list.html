@@ -30,7 +30,7 @@
     </h3>
   </div>
   <ion-list>
-    <ion-item *ngFor="let item of listings; let i = index" (click)="selectItem(item)">
+    <ion-item *ngFor="let item of listings; let i = index" (click)="goToDetails(item)">
       <ion-title>
         {{ i+1 }}. {{ item.title }}
       </ion-title>
