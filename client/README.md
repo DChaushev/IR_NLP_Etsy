@@ -1,4 +1,5 @@
 Setup:
+
 1. Install the latest Node.js for your OS (comes with npm).
 
 2. Type in a terminal `npm install -g cordova ionic`.
@@ -13,6 +14,7 @@ Setup:
 
 
 Run:
+
 1. In the `client` directory type `ionic serve`.
 
 2. If a browser does not automatically open, point one to `http://localhost:8100/`.
