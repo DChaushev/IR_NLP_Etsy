@@ -154,14 +154,14 @@ export class ListingsService {
     params+='&fields=' + FAT_LISTING_FIELDS.join(',');
     params+='&includes=MainImage';
 
-    var request = this.http.get(PROXY_ENDPOINT + '/listings/' + listingId + params)
+    this.http.get(PROXY_ENDPOINT + '/listings/' + listingId + params)
     .catch((err) => {
       return this.http.get(REAL_ENDPOINT + '/listings/' + listingId + params)
     })
     .map(res => res.json())
     .subscribe((data) => {
       let itemData = data.results[0];
-      let itemDetails : FatListing = _.merge(_.omit(itemData, 'MainImage'), { main_image_url: itemData.MainImage.url_570xN });
+      let itemDetails : FatListing = _.merge(_.omit(itemData, 'MainImage'), { main_image_url: _.get(itemData, 'MainImage.url_570xN', '') });
       successCB(itemDetails);
     }, errorCB);
   }
