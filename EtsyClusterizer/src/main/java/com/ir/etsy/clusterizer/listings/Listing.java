@@ -1,6 +1,9 @@
 package com.ir.etsy.clusterizer.listings;
 
 import com.ir.etsy.clusterizer.utils.ListingProperties;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -77,6 +80,35 @@ public class Listing {
     public Listing() {
     }
 
+    /**
+     * Creates a tiny listing from a Document
+     *
+     * @param doc
+     */
+    public Listing(Document doc) {
+        this.listingId = Integer.valueOf(doc.get(ListingProperties.LISTING_ID));
+        this.title = doc.get(ListingProperties.TITLE);
+        this.tags = Arrays.asList(doc.getValues(ListingProperties.TAGS));
+        this.categoryPathIds = pathAsList(doc);
+    }
+
+    private List<Long> pathAsList(Document doc) {
+        int categoryIndex = 0;
+
+        String p = doc.get(ListingProperties.CATEGORY + (categoryIndex++));
+        if (p == null) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<Long> path = new ArrayList<>();
+        while (p != null) {
+            path.add(Long.valueOf(p));
+            p = doc.get(ListingProperties.CATEGORY + (categoryIndex++));
+        }
+
+        return path;
+    }
+
     public Document toDocument() {
         Document doc = new Document();
 
@@ -89,8 +121,8 @@ public class Listing {
 
         int categoryIndex = 0;
         // There are only up to 3 categories in a hierarchy
-        for (String category : categoryPath) {
-            doc.add(new StringField(ListingProperties.CATEGORY + (categoryIndex++), category, Field.Store.YES));
+        for (Long category : categoryPathIds) {
+            doc.add(new StringField(ListingProperties.CATEGORY + (categoryIndex++), String.valueOf(category), Field.Store.YES));
         }
 
         addListItems(doc, materials, ListingProperties.MATERIALS);
