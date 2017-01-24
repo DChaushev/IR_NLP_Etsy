@@ -174,13 +174,21 @@ export class ListingsService {
     });
   }
 
+  private mapFatToSlimListing(listingFat: FatListing) : SlimListing {
+    return {
+      listingId: listingFat.listing_id,
+      title: listingFat.title,
+      categoryPathIds: listingFat.category_path_ids
+    }
+  }
+
   getSimilarItems(listing: FatListing) : Promise<Array<SlimListing>> {
     let data = _.omit(listing, ['main_image_url', 'url', 'description']);
     return new Promise((resolve, reject) => {
       this.http.post(LUCENE_SIMILARITY_URL, data)
       .map(res => res.json())
       .subscribe((data) => {
-        resolve(data);
+        resolve(data.map(this.mapFatToSlimListing));
       },
       reject);
     });
