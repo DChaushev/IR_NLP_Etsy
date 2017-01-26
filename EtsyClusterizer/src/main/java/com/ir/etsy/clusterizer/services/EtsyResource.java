@@ -27,7 +27,7 @@ public class EtsyResource {
 
         try {
             Listing listing = mapper.readValue(json, Listing.class);
-            List<Listing> similarListings = SimilarListingsRetriever.process(listing);
+            List<Listing> similarListings = SimilarListingsRetriever.findSimilar(listing);
 
             String jsonResult = mapper.writeValueAsString(similarListings);
 
