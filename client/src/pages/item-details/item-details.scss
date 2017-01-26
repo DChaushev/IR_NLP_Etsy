@@ -35,6 +35,16 @@ page-item-details {
       padding: 5px;
       background-color: color($colors, dark);
     }
+
+    .materials {
+      margin-top: 20px;
+    }
+
+    .material {
+      margin: 5px;
+      padding: 5px;
+      background-color: color($colors, primary);
+    }
   }
 
   .actions {

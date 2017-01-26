@@ -30,8 +30,13 @@ public class SimilarListingsRetriever {
         IndexSearcher indexSearcher = LuceneIndexUtils.getIndexSearcher(indexReader);
 
         //TODO: this is just an initial implementation. Think of something smarter.
-        List<String> tags = listing.getTags();
-        BooleanQuery query = buildBooleanQuery(tags);
+		List<String> tags = listing.getTags();
+		List<String> materials = listing.getMaterials();
+		List<String> similarParams = new ArrayList<String>();
+		similarParams.addAll(tags);
+		similarParams.addAll(materials);
+
+        BooleanQuery query = buildBooleanQuery(similarParams);
 
         TopDocs hits = indexSearcher.search(query, 50);
 

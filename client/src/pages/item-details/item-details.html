@@ -24,6 +24,11 @@
           {{ tag }}
         </ion-badge>
       </div>
+      <div class="materials">
+        <ion-badge class="material" *ngFor="let material of itemDetails.materials">
+          {{ material }}
+        </ion-badge>
+      </div>
     </ion-card-content>
   </ion-card>
   <div class='actions' *ngIf="itemDetails !== null">
