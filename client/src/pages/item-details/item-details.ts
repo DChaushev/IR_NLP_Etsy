@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ListPage } from '../list/list';
 import { SlimListing, FatListing, ListingsService } from '../../providers/listings-service';
+import _ from 'lodash';
 
 @Component({
   selector: 'page-item-details',
@@ -49,6 +50,7 @@ export class ItemDetailsPage {
       .then((res) => {
         this.similarItems = res;
         this.buttonSimilarEnabled = true;
+         _.remove(this.similarItems, item => item.listingId === this.itemDetails.listing_id);
       }, (err) => {
         // Mock response on error
         this.listingsService.getListingsForCategoryPath([{
