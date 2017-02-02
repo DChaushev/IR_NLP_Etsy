@@ -25,7 +25,7 @@ import org.apache.lucene.search.TopDocs;
 public class SimilarListingsRetriever {
 
     //NOTE: change it to lead to your index.
-    private static final String INDEX_DIR = "D:\\IR_project_etsy_files\\index";
+    private static final String INDEX_DIR = "C:\\Mimi\\SU\\Magistratura\\ML\\Project\\IR_project_etsy_files\\index";
 
     public static List<Listing> findSimilar(Listing listing) throws IOException {
         IndexReader indexReader = LuceneIndexUtils.getIndexReader(INDEX_DIR);
@@ -53,6 +53,9 @@ public class SimilarListingsRetriever {
     }
 
     private static List<Listing> runCustomSearcher(Listing listing, IndexReader reader, IndexSearcher indexSearcher) throws IOException {
+        String title = listing.getTitle();
+        NounAnalyzer analyzer = new NounAnalyzer();
+        analyzer.findNouns(title);
         List<String> tags = listing.getTags();
         List<String> materials = listing.getMaterials();
         List<Long> categories = listing.getCategoryPathIds();
