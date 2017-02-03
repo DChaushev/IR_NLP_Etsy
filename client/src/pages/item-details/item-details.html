@@ -38,7 +38,17 @@
     <button ion-button block (click)="getSimilar()" [disabled]="!buttonSimilarEnabled">
       Show similar
     </button>
+    <button ion-button block (click)="getNouns()" [disabled]="!buttonNounsEnabled">
+      Show nouns
+    </button>
   </div>
+  <ion-list>
+    <ion-item *ngFor="let noun of nouns">
+      <ion-title>
+        {{ noun }}
+      </ion-title>
+    </ion-item>
+  </ion-list>
   <ion-list>
     <ion-item *ngFor="let item of similarItems; let i = index" (click)="goToDetails(item)">
       <ion-title>

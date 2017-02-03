@@ -14,6 +14,8 @@ export class ItemDetailsPage {
   itemDetails: FatListing;
   similarItems: Array<SlimListing>;
   buttonSimilarEnabled: boolean;
+  nouns: Array<SlimListing>;
+  buttonNounsEnabled: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public listingsService: ListingsService) {
     this.selectedItem = navParams.get('item');
@@ -21,6 +23,8 @@ export class ItemDetailsPage {
     this.similarItems = [];
     this._loadDetails();
     this.buttonSimilarEnabled = true;
+    this.nouns = [];
+    this.buttonNounsEnabled = true;
   }
 
   private _loadDetails() {
@@ -69,5 +73,33 @@ export class ItemDetailsPage {
           this.buttonSimilarEnabled = true;
         });
       });
+  }
+
+  getNouns() {
+    this.buttonNounsEnabled = false;
+    this.listingsService
+      .getSimilarItems(this.itemDetails)
+      .then((res) => {
+        this.nouns = res;
+        this.buttonNounsEnabled = true;
+      }, (err) => {
+        // Mock response on error
+        this.listingsService.getListingsForCategoryPath([{
+          "category_id": 69150467,
+          "name": "accessories",
+          "meta_title": "Handmade Accessories on Etsy - Belts, hats, pins, scarves",
+          "meta_keywords": "handmade accessories, handmade belt, handmade hat, handmade wallet, handmade scarf, handmade keychain, handmade necktie, handmade accessory",
+          "page_title": "Handmade accessories",
+          "short_name": "Accessories",
+          "num_children": 27,
+          "level": 1,
+          "parent_id": null,
+          "grandparent_id": null
+        }], 0, 11).then((res) => {
+          this.nouns = res;
+          this.buttonNounsEnabled = true;
+        });
+      });
+
   }
 }

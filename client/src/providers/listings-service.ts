@@ -193,4 +193,13 @@ export class ListingsService {
       reject);
     });
   }
+
+// TODO: Fix this function
+  getNounsFromTitle(listing:FatListing) : Promise<Array<SlimListing>> {
+    let data = _.omit(listing, ['main_image_url', 'url', 'description']);
+    return new Promise((resolve, reject) => {
+      this.http.post(LUCENE_SIMILARITY_URL, data)
+      .map(res => res.json());
+    });
+  }
 }

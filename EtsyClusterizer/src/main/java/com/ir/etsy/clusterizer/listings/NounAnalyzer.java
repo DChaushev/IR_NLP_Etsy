@@ -9,7 +9,6 @@ package com.ir.etsy.clusterizer.listings;
  *
  * @author Mimi
  */
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +26,7 @@ public class NounAnalyzer {
 
 	static Set<String> nounPhrases = new HashSet<>();
 
-	public static void findNouns(String sentence) {
+	public static Set<String> findNouns(String sentence) {
 
             try {
                 //load chunking model
@@ -51,6 +50,7 @@ public class NounAnalyzer {
             }
             catch (IOException e) {
             }
+            return nounPhrases;
 	}
 
 	//recursively loop through tree, extracting nouns
