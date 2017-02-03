@@ -10,6 +10,8 @@ Modify `INDEX_DIR` in `SimilarListingsRetriever.java`.
 
 Modify `INDEX_DIR` and `EXAMPLE_LISTINGS_FOLDER` (the dir with [data JSONs](https://drive.google.com/drive/folders/0B5iTVLqLnNC6SlVHRXMxSkFheU0?usp=sharing)) in `Main.java`.
 
+Add en-parser-chunking.bin file in EtsyClusterizer and in C:Users/username. You can find this file [here](http://opennlp.sourceforge.net/models-1.5/)
+
 Run the EtsyClusterizer project so the index is generated (you can do it through NetBeans if you install Gradle plugin and add the project).
 
 In the root folder run `gradle build` - this will also copy the .war to the webserver folder.
