@@ -1,6 +1,6 @@
 package com.ir.etsy.clusterizer.services;
 
-import com.ir.etsy.clusterizer.listings.Listing;
+import com.ir.etsy.clusterizer.listings.ResultListing;
 import com.ir.etsy.clusterizer.listings.SimilarListingsRetriever;
 import java.io.IOException;
 import java.util.List;
@@ -26,8 +26,8 @@ public class EtsyResource {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            Listing listing = mapper.readValue(json, Listing.class);
-            List<Listing> similarListings = SimilarListingsRetriever.findSimilar(listing);
+            ResultListing listing = mapper.readValue(json, ResultListing.class);
+            List<ResultListing> similarListings = SimilarListingsRetriever.findSimilar(listing);
 
             String jsonResult = mapper.writeValueAsString(similarListings);
 

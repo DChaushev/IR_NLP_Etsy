@@ -21,61 +21,61 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class Listing {
 
     @JsonProperty(ListingProperties.LISTING_ID)
-    private long listingId;
+    protected long listingId;
 
     @JsonProperty(ListingProperties.STATE)
-    private ListingState state;
+    protected ListingState state;
 
     @JsonProperty(ListingProperties.USER_ID)
-    private long userId;
+    protected long userId;
 
     @JsonProperty(ListingProperties.TITLE)
-    private String title;
+    protected String title;
 
     @JsonProperty(ListingProperties.CREATION_TSZ)
-    private long creationTsz;
+    protected long creationTsz;
 
     @JsonProperty(ListingProperties.ENDING_TSZ)
-    private long endingTsz;
+    protected long endingTsz;
 
     @JsonProperty(ListingProperties.TAGS)
-    private List<String> tags;
+    protected List<String> tags;
 
     @JsonProperty(ListingProperties.CATEGORY_PATH)
-    private List<String> categoryPath;
+    protected List<String> categoryPath;
 
     @JsonProperty(ListingProperties.CATEGORY_PATH_IDS)
-    private List<Long> categoryPathIds;
+    protected List<Long> categoryPathIds;
 
     @JsonProperty(ListingProperties.MATERIALS)
-    private List<String> materials;
+    protected List<String> materials;
 
     @JsonProperty(ListingProperties.VIEWS)
-    private int views;
+    protected int views;
 
     @JsonProperty(ListingProperties.NUM_FAVORERS)
-    private int numFavorers;
+    protected int numFavorers;
 
     @JsonProperty(ListingProperties.IS_SUPPLY)
-    private boolean isSupply;
+    protected boolean isSupply;
 
     @JsonProperty(ListingProperties.OCCASION)
-    private String occasion;
+    protected String occasion;
 
     @JsonProperty(ListingProperties.STYLE)
-    private List<String> style;
+    protected List<String> style;
 
     @JsonProperty(ListingProperties.HAS_VARIATION)
-    private boolean hasVariations;
+    protected boolean hasVariations;
 
     @JsonProperty(ListingProperties.SUGGESTED_TAXONOMY_ID)
-    private long suggestedTaxonomyId;
+    protected long suggestedTaxonomyId;
 
     @JsonProperty(ListingProperties.TAXONOMY_PATH)
-    private List<String> taxonomyPath;
+    protected List<String> taxonomyPath;
 
     @JsonProperty(ListingProperties.USED_MANUFACTURER)
-    private boolean usedManufacturer;
+    protected boolean usedManufacturer;
 
     public Listing() {
     }
@@ -92,7 +92,7 @@ public class Listing {
         this.categoryPathIds = pathAsList(doc);
     }
 
-    private List<Long> pathAsList(Document doc) {
+    protected List<Long> pathAsList(Document doc) {
         int categoryIndex = 0;
 
         String p = doc.get(ListingProperties.CATEGORY + (categoryIndex++));
@@ -121,8 +121,8 @@ public class Listing {
 
         int categoryIndex = 0;
         // There are only up to 3 categories in a hierarchy
-        for (Long category : categoryPathIds) {
-            doc.add(new StringField(ListingProperties.CATEGORY + (categoryIndex++), String.valueOf(category), Field.Store.YES));
+        for (String category : categoryPath) {
+            doc.add(new TextField(ListingProperties.CATEGORY + (categoryIndex++), category, Field.Store.YES));
         }
 
         addListItems(doc, materials, ListingProperties.MATERIALS);
@@ -136,7 +136,7 @@ public class Listing {
         return doc;
     }
 
-    private static void addListItems(Document doc, List<String> list, String fieldName) {
+    protected static void addListItems(Document doc, List<String> list, String fieldName) {
         for (String item : list) {
             doc.add(new TextField(fieldName, item, Field.Store.YES));
         }
