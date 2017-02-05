@@ -6,11 +6,12 @@ Install Apache Tomcat if necessary.
 
 Modify the `webAppsFolder` definition in `build.gradle` to point to your Apache Tomcat installation.
 
-Modify `INDEX_DIR` in `SimilarListingsRetriever.java`.
+Modify the `BASE_INDEX_DIR` and `BASE_DATA_DIR` constants in `SimilarListingsRetriever.java`.
 
-Modify `INDEX_DIR` and `EXAMPLE_LISTINGS_FOLDER` (the dir with [data JSONs](https://drive.google.com/drive/folders/0B5iTVLqLnNC6SlVHRXMxSkFheU0?usp=sharing)) in `Main.java`.
+`BASE_DATA_DIR` should point to a directory that has `categories` and `listings` subdirectories.
+Download and add the correspondig data JSON files there from [here](https://drive.google.com/drive/folders/0B5iTVLqLnNC6SlVHRXMxSkFheU0?usp=sharing).
 
-Run the EtsyClusterizer project so the index is generated (you can do it through NetBeans if you install Gradle plugin and add the project).
+Run the EtsyClusterizer project so the indexes are generated (you can do it through NetBeans if you install Gradle plugin and add the project).
 
 In the root folder run `gradle build` - this will also copy the .war to the webserver folder.
 
