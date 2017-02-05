@@ -1,4 +1,4 @@
-package com.ir.etsy.clusterizer.utils;
+package com.ir.etsy.clusterizer.listings;
 
 /**
  *

@@ -1,7 +1,5 @@
 package com.ir.etsy.clusterizer.nlp;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
@@ -38,9 +36,6 @@ public class NounExtractor {
                 getNouns(parseResults[0], nouns);
             }
         } catch (IOException e) {
-            Set<String> fakeNouns = new HashSet<>();
-            fakeNouns.add("baby");
-            return fakeNouns;
         } finally {
             if (null != modelIn) {
                 try {

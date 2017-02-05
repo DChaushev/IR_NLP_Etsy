@@ -1,6 +1,5 @@
 package com.ir.etsy.clusterizer.listings;
 
-import com.ir.etsy.clusterizer.utils.ListingProperties;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -80,18 +79,6 @@ public class Listing {
     public Listing() {
     }
 
-    /**
-     * Creates a tiny listing from a Document
-     *
-     * @param doc
-     */
-    public Listing(Document doc) {
-        this.listingId = Integer.valueOf(doc.get(ListingProperties.LISTING_ID));
-        this.title = doc.get(ListingProperties.TITLE);
-        this.tags = Arrays.asList(doc.getValues(ListingProperties.TAGS));
-        this.categoryPathIds = pathAsList(doc);
-    }
-
     protected List<Long> pathAsList(Document doc) {
         int categoryIndex = 0;
 
@@ -121,8 +108,8 @@ public class Listing {
 
         int categoryIndex = 0;
         // There are only up to 3 categories in a hierarchy
-        for (String category : categoryPath) {
-            doc.add(new TextField(ListingProperties.CATEGORY + (categoryIndex++), category, Field.Store.YES));
+        for (Long categoryId : categoryPathIds) {
+            doc.add(new StringField(ListingProperties.CATEGORY + (categoryIndex++), String.valueOf(categoryId), Field.Store.YES));
         }
 
         addListItems(doc, materials, ListingProperties.MATERIALS);
