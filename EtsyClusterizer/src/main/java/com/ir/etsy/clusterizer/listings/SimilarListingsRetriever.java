@@ -49,6 +49,10 @@ public class SimilarListingsRetriever {
 
         TopDocs topHits = indexSearcher.search(query, 50);
 
+        if (topHits.totalHits == 0) {
+            return runCustomSearcher(listing, indexReader, indexSearcher);
+        }
+
         return prepareResult(indexSearcher, topHits);
     }
 
@@ -102,5 +106,4 @@ public class SimilarListingsRetriever {
 
         return results;
     }
-
 }
