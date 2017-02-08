@@ -1,6 +1,5 @@
 package com.ir.etsy.clusterizer.listings;
 
-import java.util.Arrays;
 import org.apache.lucene.document.Document;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -16,6 +15,7 @@ public class ResultListing extends Listing {
      * Creates a slim ResultListing from a Document
      *
      * @param doc
+     * @param score
      */
     public ResultListing(Document doc, float score) {
         this.listingId = Long.valueOf(doc.get(ListingProperties.LISTING_ID));

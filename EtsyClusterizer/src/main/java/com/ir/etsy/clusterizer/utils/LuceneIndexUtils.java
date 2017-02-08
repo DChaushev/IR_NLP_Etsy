@@ -4,7 +4,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import com.ir.etsy.clusterizer.listings.ListingAnalyzer;
 
 import java.io.Closeable;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import org.apache.commons.lang3.Validate;
