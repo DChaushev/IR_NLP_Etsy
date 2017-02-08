@@ -1,9 +1,12 @@
 package com.ir.etsy.clusterizer.utils;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import com.ir.etsy.clusterizer.listings.ListingAnalyzer;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import org.apache.commons.lang3.Validate;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.DirectoryReader;
@@ -20,15 +23,21 @@ import org.apache.lucene.store.FSDirectory;
  */
 public class LuceneIndexUtils {
 
-    public static IndexWriter createIndex(String indexDir) throws IOException {
-        Validate.notEmpty(indexDir);
-        return createIndex(new File(indexDir));
-    }
+    public static IndexWriter createIndex(LuceneDocumentType documentType) throws IOException {
+        Path indexDirPath = documentType.getIndexDir();
+        Validate.notNull(indexDirPath);
+        if (!indexDirPath.toFile().exists()) {
+            indexDirPath.toFile().mkdirs();
+        }
 
-    public static IndexWriter createIndex(File indexDir) throws IOException {
-        Validate.notNull(indexDir);
-        Directory dir = FSDirectory.open(indexDir.toPath());
-        Analyzer analyzer = ListingAnalyzer.getAnalyzer();
+        Analyzer analyzer;
+        if (documentType == LuceneDocumentType.LISTING) {
+            analyzer = ListingAnalyzer.getAnalyzer();
+        } else {
+            analyzer = new StandardAnalyzer();
+        }
+
+        Directory dir = FSDirectory.open(indexDirPath);
         IndexWriterConfig cfg = new IndexWriterConfig(analyzer);
         cfg.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         return new IndexWriter(dir, cfg);
@@ -38,14 +47,10 @@ public class LuceneIndexUtils {
         index.close();
     }
 
-    public static IndexReader getIndexReader(String indexDir) throws IOException {
-        Validate.notEmpty(indexDir);
-        return getIndexReader(new File(indexDir));
-    }
-
-    public static IndexReader getIndexReader(File indexDir) throws IOException {
-        Validate.notNull(indexDir);
-        return DirectoryReader.open(FSDirectory.open(indexDir.toPath()));
+    public static IndexReader getIndexReader(LuceneDocumentType documentType) throws IOException {
+        Path indexDirPath = documentType.getIndexDir();
+        Validate.notNull(indexDirPath);
+        return DirectoryReader.open(FSDirectory.open(indexDirPath));
     }
 
     public static IndexSearcher getIndexSearcher(IndexReader indexReader) {

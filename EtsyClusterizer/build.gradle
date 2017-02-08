@@ -29,6 +29,7 @@ dependencies {
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: '6.2.1'
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    compile group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.6.0'
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
 }
