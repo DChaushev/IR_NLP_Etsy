@@ -1,6 +1,5 @@
 package com.ir.etsy.clusterizer.listings;
 
-import java.util.Arrays;
 import org.apache.lucene.document.Document;
 import org.codehaus.jackson.annotate.JsonProperty;
 
